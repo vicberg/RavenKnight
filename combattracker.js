@@ -1,5 +1,5 @@
 /* 
- * Version 0.2.9
+ * Version 0.2.82
  * Made By Robin Kuiper
  * Changes in Version 0.2.1 by The Aaron
  * Changes in Version 0.2.8, 0.2.81, 0.2.82 by Victor B
@@ -581,7 +581,13 @@ var CombatTracker = CombatTracker || (function() {
                 rollAdvantage = getAttrByName(character.id, 'initiative_style', 'current');
                 if (rollAdvantage) {
                     if (rollAdvantage == '{@{d20},@{d20}}kh1') {
-                        rollInit = randomInteger(20) + randomInteger(20) + bonus
+                        let rollInit1 = randomInteger(20) 
+                        let rollInit2 = randomInteger(20) 
+                        if (rollInit1 >= rollInit2) {
+                            rollInit = rollInit1
+                        } else {
+                            rollInit = rollInit2
+                        }
                     }
                 }    
                
