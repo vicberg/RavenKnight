@@ -1,5 +1,5 @@
 /* 
- * Version 0.2.82
+ * Version 0.2.92
  * Made By Robin Kuiper
  * Changes in Version 0.2.1 by The Aaron
  * Changes in Version 0.2.8, 0.2.81, 0.2.82 by Victor B
@@ -603,18 +603,38 @@ var CombatTracker = CombatTracker || (function() {
             }     
                
             if(state[state_name].config.turnorder.show_initiative_roll){
-                let contents = ' \
-                <table style="width: 100%; text-align: left;"> \
-                    <tr> \
-                        <th>Modifier</th> \
-                        <td>'+bonus+'</td> \
-                    </tr> \
-                </table> \
-                <div style="text-align: center"> \
-                    <b style="font-size: 16pt;"> \
-                        <span style="border: 1px solid green; padding-bottom: 2px; padding-top: 4px;">[['+rollInit+'+'+bonus+']]</span><br><br> \
-                    </b> \
-                </div>'
+                if (rollInit1) {
+                    let contents = ' \
+                    <table style="width: 50%; text-align: left; float: left;"> \
+                        <tr> \
+                            <th>Modifier</th> \
+                            <td>'+bonus+'</td> \
+                        </tr> \
+                    </table> \
+                    <div style="text-align: center"> \
+                        <b style="font-size: 14pt;"> \
+                            <span style="border: 1px solid green; padding-bottom: 2px; padding-top: 4px;">[['+rollInit1+'+'+bonus+']]</span><br><br> \
+                        </b> \
+                    </div> \
+                    <div style="text-align: center"> \
+                        <b style="font-size: 10pt;"> \
+                            <span style="border: 1px solid red; padding-bottom: 2px; padding-top: 4px;">[['+rollInit2+'+'+bonus+']]</span><br><br> \
+                        </b> \
+                    </div>'
+                } else {
+                    let contents = ' \
+                    <table style="width: 100%; text-align: left;"> \
+                        <tr> \
+                            <th>Modifier</th> \
+                            <td>'+bonus+'</td> \
+                        </tr> \
+                    </table> \
+                    <div style="text-align: center"> \
+                        <b style="font-size: 16pt;"> \
+                            <span style="border: 1px solid green; padding-bottom: 2px; padding-top: 4px;">[['+rollInit+'+'+bonus+']]</span><br><br> \
+                        </b> \
+                    </div>'
+                }    
                 makeAndSendMenu(contents, token.get('name') + ' Initiative', whisper);
             }
 
