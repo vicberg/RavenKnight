@@ -578,6 +578,16 @@ var CombatTracker = CombatTracker || (function() {
             if (token.get('represents') > "") { 
                 let character = getObj('character', token.get('represents')),
                 initAttributes = state[state_name].config.initiative_attribute_name.split(','),
+                init=0,
+                i=0;    
+
+                for (i=0;i<initAttributes.length;i++) {
+                    if (character != 'undefined') {
+                        init = getAttrByName(character.id,initAttributes[i],'current') 
+                        bonus = bonus + parseFloat(init)
+                    }    
+                } 
+                
                 rollAdvantage = getAttrByName(character.id, 'initiative_style', 'current');
                 if (rollAdvantage) {
                     if (rollAdvantage == '{@{d20},@{d20}}kh1') {
@@ -588,40 +598,45 @@ var CombatTracker = CombatTracker || (function() {
                         } else {
                             rollInit = rollInit2
                         }
-                    }
-                }    
-               
-                let init=0,
-                i=0;    
-
-                for (i=0;i<initAttributes.length;i++) {
-                    if (character != 'undefined') {
-                        init = getAttrByName(character.id,initAttributes[i],'current') 
-                        bonus = bonus + parseFloat(init)
+                        if(state[state_name].config.turnorder.show_initiative_roll){
+                            let contents = ' \
+                               <table style="width: 50%; text-align: left; float: left;"> \
+                                    <tr> \
+                                        <th>Modifier</th> \
+                                        <td>'+bonus+'</td> \
+                                    </tr> \
+                                </table> \
+                                <div style="text-align: center"> \
+                                    <b style="font-size: 14pt;"> \
+                                        <span style="border: 1px solid green; padding-bottom: 2px; padding-top: 4px;">[['+rollInit1+'+'+bonus+']]</span><br><br> \
+                                    </b> \
+                                </div> \
+                                <div style="text-align: center"> \
+                                    <b style="font-size: 10pt;"> \
+                                        <span style="border: 1px solid red; padding-bottom: 2px; padding-top: 4px;">[['+rollInit2+'+'+bonus+']]</span><br><br> \
+                                    </b> \
+                                </div>'                                
+                            makeAndSendMenu(contents, token.get('name') + ' Initiative', whisper);
+                        }
+                    } else if(state[state_name].config.turnorder.show_initiative_roll) { 
+                        
+                        let contents = ' \
+                        <table style="width: 100%; text-align: left;"> \
+                            <tr> \
+                                <th>Modifier</th> \
+                                <td>'+bonus+'</td> \
+                            </tr> \
+                        </table> \
+                        <div style="text-align: center"> \
+                            <b style="font-size: 16pt;"> \
+                                <span style="border: 1px solid green; padding-bottom: 2px; padding-top: 4px;">[['+rollInit+'+'+bonus+']]</span><br><br> \
+                            </b> \
+                        </div>'
+                        makeAndSendMenu(contents, token.get('name') + ' Initiative', whisper);
+                        
                     }    
-                }    
-            }     
-               
-            if(state[state_name].config.turnorder.show_initiative_roll){
-                if (rollInit1) {
-                    let contents = ' \
-                    <table style="width: 50%; text-align: left; float: left;"> \
-                        <tr> \
-                            <th>Modifier</th> \
-                            <td>'+bonus+'</td> \
-                        </tr> \
-                    </table> \
-                    <div style="text-align: center"> \
-                        <b style="font-size: 14pt;"> \
-                            <span style="border: 1px solid green; padding-bottom: 2px; padding-top: 4px;">[['+rollInit1+'+'+bonus+']]</span><br><br> \
-                        </b> \
-                    </div> \
-                    <div style="text-align: center"> \
-                        <b style="font-size: 10pt;"> \
-                            <span style="border: 1px solid red; padding-bottom: 2px; padding-top: 4px;">[['+rollInit2+'+'+bonus+']]</span><br><br> \
-                        </b> \
-                    </div>'
-                } else {
+                    makeAndSendMenu(contents, token.get('name') + ' Initiative', whisper);
+                }  else if(state[state_name].config.turnorder.show_initiative_roll) { 
                     let contents = ' \
                     <table style="width: 100%; text-align: left;"> \
                         <tr> \
@@ -634,11 +649,11 @@ var CombatTracker = CombatTracker || (function() {
                             <span style="border: 1px solid green; padding-bottom: 2px; padding-top: 4px;">[['+rollInit+'+'+bonus+']]</span><br><br> \
                         </b> \
                     </div>'
-                }    
-                makeAndSendMenu(contents, token.get('name') + ' Initiative', whisper);
-            }
-
-            addToTurnorder({ id: token.get('id'), pr: rollInit+bonus, custom: '', pageid: token.get('pageid') });
+                    makeAndSendMenu(contents, token.get('name') + ' Initiative', whisper);
+                }   
+                addToTurnorder({ id: token.get('id'), pr: rollInit+bonus, custom: '', pageid: token.get('pageid') });
+            }   
+            
         });
 
         if(sort){
