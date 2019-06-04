@@ -588,7 +588,7 @@ var CombatTracker = CombatTracker || (function() {
                     }    
                 } 
                 
-                rollAdvantage = getAttrByName(character.id, 'initiative_style', 'current');
+                let rollAdvantage = getAttrByName(character.id, 'initiative_style', 'current');
                 if (rollAdvantage) {
                     if (rollAdvantage == '{@{d20},@{d20}}kh1') {
                         let rollInit1 = randomInteger(20) 
