@@ -5,7 +5,7 @@
  * Changes in Version 0.2.8, 0.2.81, 0.2.82 by Victor B
  * Skype: RobinKuiper.eu
  * Discord: Atheos#1095
- * My Discord Server: https://discord.gg/AcC9VME
+ * My Discord Server: https://discord.gg/AcC9VMEG
  * Roll20: https://app.roll20.net/users/1226016/robin
  * Roll20 Thread: https://app.roll20.net/forum/post/6349145/script-combattracker
  * Github: https://github.com/RobinKuiper/Roll20APIScripts
