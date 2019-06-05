@@ -632,10 +632,8 @@ var CombatTracker = CombatTracker || (function() {
                                 <span style="border: 1px solid green; padding-bottom: 2px; padding-top: 4px;">[['+rollInit+'+'+bonus+']]</span><br><br> \
                             </b> \
                         </div>'
-                        makeAndSendMenu(contents, token.get('name') + ' Initiative', whisper);
-                        
+                        makeAndSendMenu(contents, token.get('name') + ' Initiative', whisper);                        
                     }    
-                    makeAndSendMenu(contents, token.get('name') + ' Initiative', whisper);
                 }  else if(state[state_name].config.turnorder.show_initiative_roll) { 
                     let contents = ' \
                     <table style="width: 100%; text-align: left;"> \
